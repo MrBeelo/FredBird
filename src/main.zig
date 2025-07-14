@@ -113,34 +113,37 @@ pub fn main() anyerror!void {
             
             var narrator_text: [*c]const u8 = "";
             
-            //WARNING: UGLY CODE INCOMING
-            if(score >= 10 and score < 15) narrator_text = "Hey.";
-            if(score >= 15 and score < 20) narrator_text = "How are you?";
-            if(score >= 20 and score < 25) narrator_text = "Doing well?";
-            if(score >= 25 and score < 30) narrator_text = "I hope you know that I'm just here to distract you.";
-            if(score >= 30 and score < 35) narrator_text = "And when you get to 100 points...";
-            if(score >= 35 and score < 40) narrator_text = "There's a secret surprise ;)";
-            if(score >= 40 and score < 45) narrator_text = "But you're not getting there.";
-            if(score >= 45 and score < 50) narrator_text = "I guess I'll leave for now...";
-            if(score >= 75 and score < 76) narrator_text = "English or Spanish?";
-            if(score >= 90 and score < 95) narrator_text = "Come on! Almost there!";
-            if(score >= 95 and score < 100) narrator_text = "YOU CAN DO IT!!!";
-            if(score >= 100 and score < 103) narrator_text = "HAHAHA I LIED! I'M TOO LAZY TO ADD ANYTHING!";
-            if(score >= 103 and score < 106) narrator_text = "DID YOU ACTUALLY THINK YOU WERE GONNA GET A SURPRISE?!?";
-            if(score >= 106 and score < 110) narrator_text = "Well, I guess that's it...";
-            if(score >= 110 and score < 115) narrator_text = "There's nothing else to do...";
-            if(score >= 115 and score < 120) narrator_text = "I guess try to reach 500 points?";
-            if(score >= 120 and score < 125) narrator_text = "Or you could just find the savefile and edit the ONE number from there.";
-            if(score >= 125 and score < 130) narrator_text = "Eh, whatever. Do what you want.";
-            if(score >= 130 and score < 135) narrator_text = "Coming back later. Byeeeeeeeee";
-            if(score >= 200 and score < 205) narrator_text = "200, huh?";
-            if(score >= 205 and score < 210) narrator_text = "Well, here's the deal.";
-            if(score >= 210 and score < 215) narrator_text = "And this time I'm not lying.";
-            if(score >= 215 and score < 220) narrator_text = "When you reach 500 points...";
-            if(score >= 220 and score < 225) narrator_text = "I'm going to tell you ONE thing.";
-            if(score >= 225 and score < 230) narrator_text = "And that's it. Understood?";
-            if(score >= 230 and score < 235) narrator_text = "Ok, see ya then.";
-            if(score >= 500) narrator_text = "GO TOUCH SOME FUCKING GRASS KID";
+            const int_score: i32 = @intFromFloat(score);
+            switch (int_score) {
+                10...14 => narrator_text = "Hey.",
+                15...19 => narrator_text = "How are you?",
+                20...24 => narrator_text = "Doing well?",
+                25...29 => narrator_text = "I hope you know that I'm just here to distract you.",
+                30...34 => narrator_text = "And when you get to 100 points...",
+                35...39 => narrator_text = "There's a secret surprise ;)",
+                40...44 => narrator_text = "But you're not getting there.",
+                45...49 => narrator_text = "I guess I'll leave for now...",
+                75 => narrator_text = "English or Spanish?",
+                90...94 => narrator_text = "Come on! Almost there!",
+                95...99 => narrator_text = "YOU CAN DO IT!!!",
+                100...102 => narrator_text = "HAHAHA I LIED! I'M TOO LAZY TO ADD ANYTHING!",
+                103...105 => narrator_text = "DID YOU ACTUALLY THINK YOU WERE GONNA GET A SURPRISE?!?",
+                106...109 => narrator_text = "Well, I guess that's it...",
+                110...114 => narrator_text = "There's nothing else to do...",
+                115...119 => narrator_text = "I guess try to reach 500 points?",
+                120...124 => narrator_text = "Or you could just find the savefile and edit the ONE number from there.",
+                125...129 => narrator_text = "Eh, whatever. Do what you want.",
+                130...134 => narrator_text = "Coming back later. Byeeeeeeeee",
+                200...204 => narrator_text = "200, huh?",
+                205...209 => narrator_text = "Well, here's the deal.",
+                210...214 => narrator_text = "And this time I'm not lying.",
+                215...219 => narrator_text = "When you reach 500 points...",
+                220...224 => narrator_text = "I'm going to tell you ONE thing.",
+                225...229 => narrator_text = "And that's it. Understood?",
+                230...234 => narrator_text = "Ok, see ya then.",
+                500...999999 => narrator_text = "GO TOUCH SOME FUCKING GRASS KID",
+                else => narrator_text = "",
+            }
             
             const narrator_text_font_size = 48;
             text_mod.DrawMontserratText(narrator_text, rl.Vector2{ .x = simulation_size.x / 2 - text_mod.MeasureMontserratText(narrator_text, narrator_text_font_size).x / 2, .y = 700 }, narrator_text_font_size, rl.WHITE);
