@@ -31,31 +31,31 @@ pub fn UnloadBackground() void {
     rl.UnloadTexture(background_texture);
 }
 
-pub fn SummonInitialBackground() !void {
+pub fn SummonInitialBackground() void {
     var bg: Background = undefined;
     
     bg.pos = rl.Vector2{.x = 0, .y = 0};
     bg.rect = undefined;
     
-    try backgrounds.append(bg);
+    backgrounds.append(bg) catch {};
 }
 
-pub fn SummonSecondaryBackground() !void {
+pub fn SummonSecondaryBackground() void {
     var bg: Background = undefined;
     
     bg.pos = rl.Vector2{.x = main_mod.simulation_size.x - 10, .y = 0};
     bg.rect = undefined;
     
-    try backgrounds.append(bg);
+    backgrounds.append(bg) catch {};
 }
 
-pub fn UpdateBackgrounds() !void {
+pub fn UpdateBackgrounds() void {
     for (backgrounds.items) |*background| {
         background.Update();
     }
     
-    if(backgrounds.items.len <= 0) try SummonInitialBackground();
-    if(backgrounds.items.len <= 1) try SummonSecondaryBackground();
+    if(backgrounds.items.len <= 0) SummonInitialBackground();
+    if(backgrounds.items.len <= 1) SummonSecondaryBackground();
 }
 
 pub fn DrawBackgrounds() void {

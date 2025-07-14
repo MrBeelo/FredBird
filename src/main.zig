@@ -33,7 +33,7 @@ pub const Gamestate = enum {
 
 pub var gamestate = Gamestate.MAIN_MENU;
 
-pub fn main() anyerror!void {
+pub fn main() void {
     rl.SetConfigFlags(rl.FLAG_MSAA_4X_HINT);
     rl.SetConfigFlags(rl.FLAG_VSYNC_HINT);
     
@@ -50,8 +50,8 @@ pub fn main() anyerror!void {
     
     rl.SetTextureFilter(target.texture, rl.TEXTURE_FILTER_BILINEAR);
     
-    try savefile_mod.InitSavefile();
-    high_score = try savefile_mod.ReadData();
+    savefile_mod.InitSavefile();
+    high_score = savefile_mod.ReadData();
     
     text_mod.LoadMontserrat();
     defer text_mod.UnloadMontserrat();
@@ -85,13 +85,13 @@ pub fn main() anyerror!void {
         
         sound_mod.ManageMusic();
         
-        if(gamestate == Gamestate.PLAYING or gamestate == Gamestate.DEAD) try fred.Update();
-        if(gamestate == Gamestate.PLAYING or gamestate == Gamestate.MAIN_MENU) try bg_mod.UpdateBackgrounds();
+        if(gamestate == Gamestate.PLAYING or gamestate == Gamestate.DEAD) fred.Update();
+        if(gamestate == Gamestate.PLAYING or gamestate == Gamestate.MAIN_MENU) bg_mod.UpdateBackgrounds();
         if(gamestate == Gamestate.MAIN_MENU) main_menu_mod.UpdateMainMenuScreen();
         if(gamestate == Gamestate.DEAD) dead_mod.UpdateDeadScreen();
         
         if(gamestate == Gamestate.PLAYING) {
-            try pillar_mod.UpdatePillars();
+            pillar_mod.UpdatePillars();
             time_played += dt60 / 60;
         }
         
@@ -107,7 +107,7 @@ pub fn main() anyerror!void {
         }
         
         if(gamestate == Gamestate.PLAYING) {
-            const score_text = try std.fmt.bufPrintZ(&buf, "{d:.0}", .{score});
+            const score_text = std.fmt.bufPrintZ(&buf, "{d:.0}", .{score}) catch "";
             const score_text_font_size: f32 = 128;
             text_mod.DrawMontserratText(score_text, rl.Vector2{.x = simulation_size.x / 2 - text_mod.MeasureMontserratText(score_text, score_text_font_size).x / 2, .y = 100}, score_text_font_size, game_color);
             
@@ -149,16 +149,16 @@ pub fn main() anyerror!void {
             text_mod.DrawMontserratText(narrator_text, rl.Vector2{ .x = simulation_size.x / 2 - text_mod.MeasureMontserratText(narrator_text, narrator_text_font_size).x / 2, .y = 700 }, narrator_text_font_size, rl.WHITE);
         }
         
-        if(gamestate == Gamestate.DEAD) try dead_mod.DrawDeadScreen();
-        if(gamestate == Gamestate.MAIN_MENU) try main_menu_mod.DrawMainMenuScreen();
+        if(gamestate == Gamestate.DEAD) dead_mod.DrawDeadScreen();
+        if(gamestate == Gamestate.MAIN_MENU) main_menu_mod.DrawMainMenuScreen();
         
         if(f3On) {
-            text_mod.DrawMontserratText(try std.fmt.bufPrintZ(&buf, "FPS: ({d})", .{rl.GetFPS()}), rl.Vector2{.x = 10, .y = 10}, 32, rl.WHITE);
-            text_mod.DrawMontserratText(try std.fmt.bufPrintZ(&buf, "Position: ({d:.1}, {d:.1})", .{fred.pos.x, fred.pos.y}), rl.Vector2{.x = 10, .y = 40}, 32, rl.WHITE);
-            text_mod.DrawMontserratText(try std.fmt.bufPrintZ(&buf, "Velocity: ({d:.1}, {d:.1})", .{fred.vel.x, fred.vel.y}), rl.Vector2{.x = 10, .y = 70}, 32, rl.WHITE);
-            text_mod.DrawMontserratText(try std.fmt.bufPrintZ(&buf, "Pillars: ({d})", .{pillar_mod.pillars.items.len}), rl.Vector2{.x = 10, .y = 100}, 32, rl.WHITE);
-            text_mod.DrawMontserratText(try std.fmt.bufPrintZ(&buf, "Fred Rotation Cycle: ({d})", .{fred.rot_cycle}), rl.Vector2{.x = 10, .y = 130}, 32, rl.WHITE);
-            text_mod.DrawMontserratText(try std.fmt.bufPrintZ(&buf, "Time Played: ({d:.1})", .{time_played}), rl.Vector2{.x = 10, .y = 160}, 32, rl.WHITE);
+            text_mod.DrawMontserratText(std.fmt.bufPrintZ(&buf, "FPS: ({d})", .{rl.GetFPS()}) catch "", rl.Vector2{.x = 10, .y = 10}, 32, rl.WHITE);
+            text_mod.DrawMontserratText(std.fmt.bufPrintZ(&buf, "Position: ({d:.1}, {d:.1})", .{fred.pos.x, fred.pos.y}) catch "", rl.Vector2{.x = 10, .y = 40}, 32, rl.WHITE);
+            text_mod.DrawMontserratText(std.fmt.bufPrintZ(&buf, "Velocity: ({d:.1}, {d:.1})", .{fred.vel.x, fred.vel.y}) catch "", rl.Vector2{.x = 10, .y = 70}, 32, rl.WHITE);
+            text_mod.DrawMontserratText(std.fmt.bufPrintZ(&buf, "Pillars: ({d})", .{pillar_mod.pillars.items.len}) catch "", rl.Vector2{.x = 10, .y = 100}, 32, rl.WHITE);
+            text_mod.DrawMontserratText(std.fmt.bufPrintZ(&buf, "Fred Rotation Cycle: ({d})", .{fred.rot_cycle}) catch "", rl.Vector2{.x = 10, .y = 130}, 32, rl.WHITE);
+            text_mod.DrawMontserratText(std.fmt.bufPrintZ(&buf, "Time Played: ({d:.1})", .{time_played}) catch "", rl.Vector2{.x = 10, .y = 160}, 32, rl.WHITE);
         }
         
         if(target.texture.id != 0) rl.EndTextureMode();

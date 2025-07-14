@@ -14,12 +14,12 @@ pub fn UpdateMainMenuScreen() void {
     if(rl.IsKeyPressed(rl.KEY_ESCAPE)) main_mod.should_leave_game = true;
 }
 
-pub fn DrawMainMenuScreen() !void {
+pub fn DrawMainMenuScreen() void {
     const title_text = "FRED BIRD";
     const title_text_font_size = 128;
     text_mod.DrawMontserratText(title_text, rl.Vector2{ .x = main_mod.simulation_size.x / 2 - text_mod.MeasureMontserratText(title_text, title_text_font_size).x / 2, .y = 200 }, title_text_font_size, rl.WHITE);
 
-    const high_score_text = try std.fmt.bufPrintZ(&main_mod.buf, "High Score: {d:.0}", .{main_mod.high_score});
+    const high_score_text = std.fmt.bufPrintZ(&main_mod.buf, "High Score: {d:.0}", .{main_mod.high_score}) catch "";
     const high_score_text_font_size = 32;
     if(main_mod.high_score > 0) text_mod.DrawMontserratText(high_score_text, rl.Vector2{ .x = main_mod.simulation_size.x / 2 - text_mod.MeasureMontserratText(high_score_text, high_score_text_font_size).x / 2, .y = 320 }, high_score_text_font_size, rl.WHITE);
 

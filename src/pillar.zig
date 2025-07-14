@@ -38,7 +38,7 @@ pub fn UnloadPillars() void {
     rl.UnloadTexture(pillar_texture);
 }
 
-pub fn SummonPillars() !void {
+pub fn SummonPillars() void {
     var p1: Pillar = undefined;
     var p2: Pillar = undefined;
     
@@ -52,13 +52,13 @@ pub fn SummonPillars() !void {
     p2.top = false;
     p2.passed = false;
     
-    try pillars.append(p1);
-    try pillars.append(p2);
+    pillars.append(p1) catch {};
+    pillars.append(p2) catch {};
 }
 
-pub fn UpdatePillars() !void {
+pub fn UpdatePillars() void {
     pillar_spawn_timer.Update();
-    if(pillar_spawn_timer.call) try SummonPillars();
+    if(pillar_spawn_timer.call) SummonPillars();
     for (pillars.items) |*pillar| {
         pillar.Update();
     }

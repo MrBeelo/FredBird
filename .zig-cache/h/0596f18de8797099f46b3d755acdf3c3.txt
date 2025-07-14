@@ -1,2 +1,0 @@
-0
-4636 16806600 1752239595610071059 e92ce077d2ecf27198ce8669ae7fb5de 1 raylib/src/external/glfw/deps/wayland/fractional-scale-v1.xml

@@ -33,7 +33,7 @@ pub const Fred = struct {
         main_mod.time_played = 0;
     }
     
-    pub fn Update(self: *Fred) !void {
+    pub fn Update(self: *Fred) void {
         if(main_mod.gamestate == main_mod.Gamestate.PLAYING)
         {
             self.rotate_timer.Update();
@@ -65,9 +65,9 @@ pub const Fred = struct {
                     main_mod.gamestate = main_mod.Gamestate.DEAD;
                     rl.PlaySound(sound_mod.hit);
                     if(main_mod.score > main_mod.high_score) { 
-                        try savefile_mod.WriteData(main_mod.score); 
+                        savefile_mod.WriteData(main_mod.score); 
                     }
-                    main_mod.high_score = try savefile_mod.ReadData();
+                    main_mod.high_score = savefile_mod.ReadData();
                 }
             }
         }
@@ -83,9 +83,9 @@ pub const Fred = struct {
             if(main_mod.gamestate == main_mod.Gamestate.PLAYING) {
                 main_mod.gamestate = main_mod.Gamestate.DEAD;
                 if(main_mod.score > main_mod.high_score) { 
-                    try savefile_mod.WriteData(main_mod.score); 
+                    savefile_mod.WriteData(main_mod.score); 
                 }
-                main_mod.high_score = try savefile_mod.ReadData();
+                main_mod.high_score = savefile_mod.ReadData();
                 rl.PlaySound(sound_mod.hit);
             }
             
