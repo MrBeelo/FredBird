@@ -1,0 +1,2 @@
+0
+9016 16806606 1752239595610071059 364a214a2e096c55a8967d8930b2639a 1 raylib/src/external/glfw/deps/wayland/xdg-activation-v1.xml

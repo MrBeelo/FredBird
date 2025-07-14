@@ -1,0 +1,17 @@
+.{
+    .name = .OriginalRaylibTest,
+    .version = "0.0.0",
+    .fingerprint = 0x533156713d9c3dc,
+    .minimum_zig_version = "0.14.1",
+    .dependencies = .{
+        .raylib = .{
+            .path = "raylib",
+        },
+    },
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+        "README.md",
+    },
+}

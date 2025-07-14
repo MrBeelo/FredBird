@@ -1,0 +1,10 @@
+cimport.o: \
+  /home/mrbeelo/Projects/BeeloRaylibZigTemplates/OriginalRaylibTest/.zig-cache/o/5164870396dc7fec5d1065d7d652cde5/cimport.h \
+  /home/mrbeelo/Projects/BeeloRaylibZigTemplates/OriginalRaylibTest/.zig-cache/o/28d2281d815588f9117e6f22775af545/raylib.h \
+  /opt/zig/lib/include/stdarg.h \
+  /opt/zig/lib/include/__stdarg_header_macro.h \
+  /opt/zig/lib/include/__stdarg___gnuc_va_list.h \
+  /opt/zig/lib/include/__stdarg_va_list.h \
+  /opt/zig/lib/include/__stdarg_va_arg.h \
+  /opt/zig/lib/include/__stdarg___va_copy.h \
+  /opt/zig/lib/include/__stdarg_va_copy.h /opt/zig/lib/include/stdbool.h
