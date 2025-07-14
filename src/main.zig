@@ -96,7 +96,7 @@ pub fn main() void {
         }
         
         if(target.texture.id != 0) rl.BeginTextureMode(target);
-        rl.ClearBackground(rl.WHITE);
+        rl.ClearBackground(rl.BLACK);
         
         bg_mod.DrawBackgrounds();
         
